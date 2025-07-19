@@ -22,7 +22,7 @@ public class AIController {
 
     @PostMapping("/get")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public ResponseEntity get(@RequestBody AIRequest aiRequest, HttpServletRequest request) {
-        return aiService.getAIResponse(aiRequest, request);
+    public ResponseEntity generatePlan(@RequestBody AIRequest aiRequest, HttpServletRequest request) {
+        return aiService.generatePlan(aiRequest, request);
     }
 }
