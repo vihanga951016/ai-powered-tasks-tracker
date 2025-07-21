@@ -9,6 +9,7 @@ public class Messages {
             "\n" +
             "{\n" +
             "  \"project\": \"project title\",\n" +
+            "  \"deadline\": \"project deadline\",\n" +
             "  \"tasks\": [\n" +
             "    {\n" +
             "      \"tasksTitle\": \"Tasks title 1\",\n" +
@@ -34,5 +35,6 @@ public class Messages {
             "}\n" +
             "\n" +
             "Tasks is, ";
-    public static final String END = "Please no need to use other skills. Also please consider the deadline if has.";
+    public static final String END = "Please no need to use other skills. Also please consider the deadline if has and " +
+            "if not, set the 'deadline' as null.";
 }

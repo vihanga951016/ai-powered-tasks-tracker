@@ -1,13 +1,11 @@
 package com.flex.task_tracker.security.utils;
 
-import com.flex.task_tracker.app.entities.User;
-import com.flex.task_tracker.common.constants.SecurityConstants;
+import com.flex.task_tracker.app.entities.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;

@@ -1,7 +1,7 @@
 package com.flex.task_tracker.app.controllers.user;
 
-import com.flex.task_tracker.app.entities.User;
-import com.flex.task_tracker.app.entities.http.requests.LoginRequest;
+import com.flex.task_tracker.app.entities.user.User;
+import com.flex.task_tracker.app.entities.user.requests.LoginRequest;
 import com.flex.task_tracker.app.services.users.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

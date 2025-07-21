@@ -1,11 +1,11 @@
 package com.flex.task_tracker.app.services.users.impls;
 
-import com.flex.task_tracker.app.entities.ExpiredToken;
-import com.flex.task_tracker.app.entities.User;
-import com.flex.task_tracker.app.entities.UserLogin;
-import com.flex.task_tracker.app.repositories.ExpiredTokenRepository;
-import com.flex.task_tracker.app.repositories.UserLoginRepository;
-import com.flex.task_tracker.app.repositories.UserRepository;
+import com.flex.task_tracker.app.entities.user.ExpiredToken;
+import com.flex.task_tracker.app.entities.user.User;
+import com.flex.task_tracker.app.entities.user.UserLogin;
+import com.flex.task_tracker.app.repositories.user.ExpiredTokenRepository;
+import com.flex.task_tracker.app.repositories.user.UserLoginRepository;
+import com.flex.task_tracker.app.repositories.user.UserRepository;
 import com.flex.task_tracker.security.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -58,10 +58,10 @@ public class UserHelper {
             existingData.setLastName(requestingData.getLastName());
         }
 
-        if (requestingData.getType() != null
-                && !requestingData.getType().equals(existingData.getType())) {
-            existingData.setFirstName(requestingData.getType());
-        }
+//        if (requestingData.getType() != null
+//                && !requestingData.getType().equals(existingData.getType())) {
+//            existingData.setFirstName(requestingData.getType());
+//        }
 
         return existingData;
     }

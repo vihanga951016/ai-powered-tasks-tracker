@@ -19,6 +19,12 @@ public class ReturnResponse {
                 .body(new HttpResponse<>().responseFail(message));
     }
 
+    public static ResponseEntity SERVER_ERROR(String message) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new HttpResponse<>().serverError(message));
+    }
+
+
     public static ResponseEntity SUCCESS(String message) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new HttpResponse<>().responseOk(message));

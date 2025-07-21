@@ -1,8 +1,7 @@
 package com.flex.task_tracker.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flex.task_tracker.app.repositories.ExpiredTokenRepository;
-import com.flex.task_tracker.common.http.HttpResponse;
+import com.flex.task_tracker.app.repositories.user.ExpiredTokenRepository;
 import com.flex.task_tracker.common.http.ReturnResponse;
 import com.flex.task_tracker.security.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -11,7 +10,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

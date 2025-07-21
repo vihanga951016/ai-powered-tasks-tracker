@@ -1,7 +1,7 @@
 package com.flex.task_tracker.security.impl;
 
-import com.flex.task_tracker.app.entities.User;
-import com.flex.task_tracker.app.repositories.UserRepository;
+import com.flex.task_tracker.app.entities.user.User;
+import com.flex.task_tracker.app.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

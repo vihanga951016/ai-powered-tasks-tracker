@@ -1,10 +1,10 @@
 package com.flex.task_tracker.app.services.users.impls;
 
-import com.flex.task_tracker.app.entities.User;
-import com.flex.task_tracker.app.entities.UserLogin;
-import com.flex.task_tracker.app.entities.http.requests.LoginRequest;
-import com.flex.task_tracker.app.repositories.UserLoginRepository;
-import com.flex.task_tracker.app.repositories.UserRepository;
+import com.flex.task_tracker.app.entities.user.User;
+import com.flex.task_tracker.app.entities.user.UserLogin;
+import com.flex.task_tracker.app.entities.user.requests.LoginRequest;
+import com.flex.task_tracker.app.repositories.user.UserLoginRepository;
+import com.flex.task_tracker.app.repositories.user.UserRepository;
 import com.flex.task_tracker.app.services.users.UserService;
 import com.flex.task_tracker.security.utils.HashUtil;
 import com.flex.task_tracker.security.utils.JwtUtil;

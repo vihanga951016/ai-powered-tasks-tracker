@@ -29,4 +29,10 @@ public class HttpResponse<T> {
         this.data = data;
         return this;
     }
+
+    public HttpResponse<T> serverError(T data) {
+        message = "Something went wrong";
+        this.data = data;
+        return this;
+    }
 }

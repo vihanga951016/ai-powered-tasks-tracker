@@ -1,8 +1,8 @@
 package com.flex.task_tracker.app.services.ai.helper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flex.task_tracker.app.entities.http.requests.ai.GeminiData;
-import com.flex.task_tracker.app.entities.http.requests.ai.GeneratedProject;
+import com.flex.task_tracker.app.entities.projects.requests.ai.GeminiData;
+import com.flex.task_tracker.app.entities.projects.requests.ai.GeneratedProject;
 import com.flex.task_tracker.common.utils.JsonConverter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
