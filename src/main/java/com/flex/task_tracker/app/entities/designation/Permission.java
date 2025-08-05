@@ -15,8 +15,12 @@ import lombok.NoArgsConstructor;
 public class Permission {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String permission;
     private boolean deleted;
+
+    public Permission(Integer id) {
+        this.id = id;
+    }
 }

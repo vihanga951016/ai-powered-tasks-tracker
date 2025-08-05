@@ -65,7 +65,7 @@ public class UserHelper {
 
         return existingData;
     }
-
+    
     public boolean authorizingUser(User user, HttpServletRequest request) {
         String email = JwtUtil.extractUsername(request);
 

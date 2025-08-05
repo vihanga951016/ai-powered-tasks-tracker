@@ -18,7 +18,7 @@ import java.util.Date;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Colombo")

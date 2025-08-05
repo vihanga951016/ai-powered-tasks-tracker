@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class DesignationPermission {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "designationId")

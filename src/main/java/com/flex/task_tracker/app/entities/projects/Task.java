@@ -18,7 +18,7 @@ import java.util.Date;
 @Table(name = "tasks")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String subject;
     @Column(length = 1000)
