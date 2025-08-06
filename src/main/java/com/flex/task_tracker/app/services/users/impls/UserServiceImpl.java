@@ -5,6 +5,7 @@ import com.flex.task_tracker.app.entities.user.UserLogin;
 import com.flex.task_tracker.app.entities.user.requests.LoginRequest;
 import com.flex.task_tracker.app.repositories.user.UserLoginRepository;
 import com.flex.task_tracker.app.repositories.user.UserRepository;
+import com.flex.task_tracker.app.services.designation.caching.DesignationCacheService;
 import com.flex.task_tracker.app.services.users.UserService;
 import com.flex.task_tracker.security.utils.HashUtil;
 import com.flex.task_tracker.security.utils.JwtUtil;
@@ -25,6 +26,7 @@ import static com.flex.task_tracker.common.http.ReturnResponse.*;
 public class UserServiceImpl implements UserService {
 
     private final UserHelper userHelper;
+    private final DesignationCacheService designationCacheService;
 
     private final UserRepository userRepository;
     private final UserLoginRepository userLoginRepository;
@@ -39,8 +41,15 @@ public class UserServiceImpl implements UserService {
 
         if (existingUser == null) {
             log.info(loginRequest.getEmail());
-            return ERROR("Invalid Email");
+            return ERROR("Wrong Email");
         }
+
+        if (existingUser.getDesignation() == null) {
+            return ERROR("Designation not found");
+        }
+
+        //remove designation permission cache
+        designationCacheService.evictPermissionsCache(existingUser.getDesignation().getId());
 
         if (!HashUtil.checkEncrypted(loginRequest.getPassword(), existingUser.getPassword())) {
             log.info(loginRequest.getPassword());
@@ -183,13 +192,14 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity logout(HttpServletRequest request) {
         String email = JwtUtil.extractUsername(request);
 
-            if (email == null) return ERROR("Invalid email");
+        if (email == null) return ERROR("Invalid email");
 
-            User user = userRepository.findByEmailAndDeletedIsFalse(email);
+        User user = userRepository.findByEmailAndDeletedIsFalse(email);
 
-            if (user == null)  return ERROR("User not found from " + email);
+        if (user == null)  return ERROR("User not found from " + email);
 
         userHelper.logoutPreviousLogins(user.getId());
+        designationCacheService.evictPermissionsCache(user.getDesignation().getId());
 
         return SUCCESS("User successfully logout");
     }

@@ -1,6 +1,8 @@
 package com.flex.task_tracker.security;
 
+import com.flex.task_tracker.common.constants.SecurityConstants;
 import com.flex.task_tracker.security.filter.CustomAccessDeniedHandler;
+import com.flex.task_tracker.security.filter.MissingDesignationEntryPoint;
 import com.flex.task_tracker.security.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static com.flex.task_tracker.common.constants.SecurityConstants.*;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -27,10 +31,14 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final MissingDesignationEntryPoint missingDesignationEntryPoint;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, CustomAccessDeniedHandler customAccessDeniedHandler) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
+                          CustomAccessDeniedHandler customAccessDeniedHandler,
+                          MissingDesignationEntryPoint missingDesignationEntryPoint) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customAccessDeniedHandler = customAccessDeniedHandler;
+        this.missingDesignationEntryPoint = missingDesignationEntryPoint;
     }
 
     @Bean
@@ -38,11 +46,12 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/register", "/user/login").permitAll()
+                        .requestMatchers(EXCLUDED_PATHS).permitAll()
                         .requestMatchers("/ai/get").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(missingDesignationEntryPoint)
                         .accessDeniedHandler(customAccessDeniedHandler) // 👈 Handle forbidden role access
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

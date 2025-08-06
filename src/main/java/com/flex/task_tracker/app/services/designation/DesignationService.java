@@ -7,10 +7,10 @@ import com.flex.task_tracker.app.entities.designation.requests.AssignPermissions
 import com.flex.task_tracker.app.repositories.designation.DesignationPermissionRepository;
 import com.flex.task_tracker.app.repositories.designation.DesignationRepository;
 import com.flex.task_tracker.app.repositories.designation.PermissionRepository;
-import com.flex.task_tracker.common.http.ReturnResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,26 @@ public class DesignationService {
             return ERROR("Designation already exist");
         }
 
-        designationRepository.save(designation);
+        Permission defaultPermission = permissionRepository
+                .getPermissionByPermissionAndDeletedIsFalse("permit_this");
+
+        if (defaultPermission == null) {
+            Permission permitPermission = Permission.builder()
+                    .permission("permit_this")
+                    .deleted(false)
+                    .build();
+
+            defaultPermission = permissionRepository.save(permitPermission);
+        }
+
+        Designation newDesignation = designationRepository.save(designation);
+
+        DesignationPermission designationPermission = DesignationPermission.builder()
+                .designation(newDesignation)
+                .permission(defaultPermission)
+                .build();
+
+        designationPermissionRepository.save(designationPermission);
 
         return SUCCESS("Designation saved");
     }
@@ -70,6 +89,7 @@ public class DesignationService {
         return SUCCESS("Designation saved");
     }
 
+    @CacheEvict(value = "permissions", key = "#assignPermissions.designationId")
     public ResponseEntity managePermissionForDesignation(AssignPermissions assignPermissions, HttpServletRequest request) {
         log.info(request.getRequestURI());
 
@@ -80,9 +100,9 @@ public class DesignationService {
             return ERROR("Designation not found");
         }
 
-        // Fetch all existing permission entities for the designation
+        // Fetch all existing permission except 'permit_this' entities for the designation
         List<DesignationPermission> allPermissionsForDesignation = designationPermissionRepository
-                .getAllDesignationPermissions(assignPermissions.getDesignationId());
+                .getAllEditableDesignationPermissions(assignPermissions.getDesignationId());
 
         List<Integer> requestedPermissionIds = assignPermissions.getPermissions();
 

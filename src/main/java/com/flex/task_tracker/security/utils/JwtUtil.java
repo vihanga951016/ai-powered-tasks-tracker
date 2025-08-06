@@ -33,18 +33,6 @@ public class JwtUtil {
                 .compact(); // 📦 Build token
     }
 
-    public String expireToken(String token) {
-        Date expiry = Jwts.parserBuilder().setSigningKey(key).build()
-                .parseClaimsJws(token).getBody().getExpiration();
-
-        //todo: save the expired token
-        return null;
-    }
-
-    public Key getKey() {
-        return key;
-    }
-
     public static Claims extractTokenBody(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -69,6 +57,8 @@ public class JwtUtil {
         }
 
         String token = authHeader.substring(7);
+
+        //todo: check the token is expired or not
 
         return Jwts.parserBuilder()
                 .setSigningKey(key)

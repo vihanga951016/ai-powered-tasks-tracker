@@ -16,19 +16,19 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('permission_management')")
     public ResponseEntity createPermission(@RequestBody Permission permission, HttpServletRequest request) {
         return permissionService.addPermission(permission, request);
     }
 
     @PostMapping("/update")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('permission_management')")
     public ResponseEntity updatePermission(@RequestBody Permission permission, HttpServletRequest request) {
         return permissionService.updatePermission(permission, request);
     }
 
     @PostMapping("/{id}/delete")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('permission_management')")
     public ResponseEntity deletePermission(@PathVariable Integer id, HttpServletRequest request) {
         return permissionService.deletePermission(id, request);
     }

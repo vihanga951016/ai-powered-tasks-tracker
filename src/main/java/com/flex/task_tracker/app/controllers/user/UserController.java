@@ -29,46 +29,45 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('user_management')")
     public ResponseEntity add(@RequestBody User data, HttpServletRequest request) {
         return userService.add(data, request);
     }
 
     @PostMapping("/update")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','USER')")
+    @PreAuthorize("@securityService.hasAnyAccess('permit_this')")
     public ResponseEntity update(@RequestBody User data, HttpServletRequest request) {
         return userService.update(data, request);
     }
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','USER')")
+    @PreAuthorize("@securityService.hasAnyAccess('permit_this')")
     public ResponseEntity getAll(HttpServletRequest request) {
         return userService.getAll(request);
     }
 
     @GetMapping("/{id}/get")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','USER')")
+    @PreAuthorize("@securityService.hasAnyAccess('permit_this')")
     public ResponseEntity getById(@PathVariable Integer id,
                                   HttpServletRequest request) {
         return userService.getById(id, request);
     }
 
     @PostMapping("/{id}/delete")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('user_management')")
     public ResponseEntity delete(@PathVariable Integer id,
                                  HttpServletRequest request) {
         return userService.delete(id, request);
     }
 
     @PostMapping("/{id}/restrict")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('user_management')")
     public ResponseEntity restrict(@PathVariable Integer id,
                                 HttpServletRequest request) {
         return userService.userRestrict(id, request);
     }
 
     @PostMapping("/logout")
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN','USER')")
     public ResponseEntity logout(HttpServletRequest request) {
         return userService.logout(request);
     }

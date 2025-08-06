@@ -17,28 +17,28 @@ public class DesignationController {
     private final DesignationService designationService;
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('designation_management')")
     public ResponseEntity createDesignation(@RequestBody Designation designation,
                                             HttpServletRequest request) {
         return designationService.createDesignation(designation, request);
     }
 
     @PostMapping("/update")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('designation_management')")
     public ResponseEntity updateDesignation(@RequestBody Designation designation,
                                             HttpServletRequest request) {
         return designationService.updateDesignation(designation, request);
     }
 
     @PostMapping("/manage-permissions")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('designation_management')")
     public ResponseEntity managePermissions(@RequestBody AssignPermissions assignPermissions,
                                             HttpServletRequest request) {
         return designationService.managePermissionForDesignation(assignPermissions, request);
     }
 
     @PostMapping("/{id}/delete")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("@securityService.hasAnyAccess('designation_management')")
     public ResponseEntity deleteDesignation(@PathVariable Integer id,
                                             HttpServletRequest request) {
         return designationService.deleteDesignation(id, request);

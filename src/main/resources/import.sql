@@ -1,4 +1,6 @@
-INSERT IGNORE INTO permissions(deleted, permission) 
+INSERT IGNORE INTO permissions(deleted, permission)
+VALUES (FALSE, 'permit_this');
+INSERT IGNORE INTO permissions(deleted, permission)
 VALUES (FALSE, 'user_management');
 INSERT IGNORE INTO permissions(deleted, permission)
 VALUES (FALSE, 'task_management');
